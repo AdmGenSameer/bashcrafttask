@@ -136,242 +136,195 @@
             <p>Thank you for contacting BashCraft Club. We'll respond shortly.</p>
         </div>
     </div>
+<script>
+    // Event data with image placeholders
+    const upcomingEvents = [
+        { title: "Bash Scripting Workshop", date: "November 15, 2024", description: "Learn advanced bash scripting techniques and automation.", image: "/api/placeholder/150/150" },
+        { title: "Command Line Tools Deep Dive", date: "November 25, 2024", description: "Explore essential CLI tools: grep, sed, awk, and more.", image: "/api/placeholder/150/150" }
+    ];
 
-    <script>
-        // Event data with image placeholders
-        const upcomingEvents = [
-            {
-                title: "Bash Scripting Workshop",
-                date: "November 15, 2024",
-                description: "Learn advanced bash scripting techniques and automation.",
-                image: "/api/placeholder/150/150"
-            },
-            {
-                title: "Command Line Tools Deep Dive",
-                date: "November 25, 2024",
-                description: "Explore essential CLI tools: grep, sed, awk, and more.",
-                image: "/api/placeholder/150/150"
-            }
-        ];
+    const previousEvents = [
+        { title: "Shell Scripting Fundamentals", date: "October 10, 2024", description: "Introduction to shell scripting basics and best practices.", image: "/api/placeholder/150/150" },
+        { title: "Terminal Productivity Hacks", date: "October 1, 2024", description: "Tips and tricks for becoming a terminal power user.", image: "/api/placeholder/150/150" }
+    ];
 
-        const previousEvents = [
-            {
-                title: "Shell Scripting Fundamentals",
-                date: "October 10, 2024",
-                description: "Introduction to shell scripting basics and best practices.",
-                image: "/api/placeholder/150/150"
-            },
-            {
-                title: "Terminal Productivity Hacks",
-                date: "October 1, 2024",
-                description: "Tips and tricks for becoming a terminal power user.",
-                image: "/api/placeholder/150/150"
-            }
-        ];
-
-        // Function to create event cards with images
-        function createEventCard(event) {
-            return `
-                <div class="event-card">
-                    <div class="event-image" style="background-image: url('${event.image}')"></div>
-                    <div class="event-content">
-                        <h3 class="event-title">${event.title}</h3>
-                        <div class="event-details">
-                            <p>Date: ${event.date}</p>
-                            <p>${event.description}</p>
-                        </div>
+    function createEventCard(event) {
+        return `
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('${event.image}')"></div>
+                <div class="event-content">
+                    <h3 class="event-title">${event.title}</h3>
+                    <div class="event-details">
+                        <p>Date: ${event.date}</p>
+                        <p>${event.description}</p>
                     </div>
                 </div>
-            `;
-        }
-
-        // Populate events
-        document.getElementById('upcoming-events').innerHTML = 
-            upcomingEvents.map(createEventCard).join('');
-        document.getElementById('previous-events').innerHTML = 
-            previousEvents.map(createEventCard).join('');
-
-        // Handle contact form
-        const modal = document.getElementById('success-modal');
-        const closeBtn = document.querySelector('.close-modal');
-
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            modal.style.display = 'flex';
-            this.reset();
-        });
-
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Typing effect for header
-        function typeEffect(element, text, speed = 100) {
-            let i = 0;
-            element.textContent = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            
-            type();
-        }
-
-        // Apply typing effect to header
-        const header = document.querySelector('.type-effect');
-        typeEffect(header, 'BashCraft Club');
-
-        // Terminal Interface Logic
-        const terminalOverlay = document.getElementById('terminalOverlay');
-        const terminalInput = document.getElementById('terminalInput');
-
-        terminalInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                if (this.value.toLowerCase() === '/start') {
-                    terminalOverlay.style.opacity = '0';
-                    setTimeout(() => {
-                        terminalOverlay.style.display = 'none';
-                    }, 500);
-                } else {
-                    this.value = '';
-                }
-            }
-        });
-
-       // Enhanced Carousel Logic
-const carousel = document.getElementById('imageCarousel');
-const items = document.querySelectorAll('.carousel-item');
-const totalItems = items.length;
-const itemWidth = 420; // Width + gap
-let position = 0;
-let currentSlide = 0;
-
-// Create indicators
-const indicators = document.getElementById('carouselIndicators');
-for (let i = 0; i < totalItems; i++) {
-    const indicator = document.createElement('div');
-    indicator.classList.add('carousel-indicator');
-    if (i === 0) indicator.classList.add('active');
-    indicator.addEventListener('click', () => goToSlide(i));
-    indicators.appendChild(indicator);
-}
-
-// Update indicators
-function updateIndicators() {
-    document.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentSlide);
-    });
-}
-
-// Navigation functions
-function moveCarousel(direction) {
-    if (direction === 'next') {
-        currentSlide = (currentSlide + 1) % totalItems;
-    } else {
-        currentSlide = (currentSlide - 1 + totalItems) % totalItems;
+            </div>
+        `;
     }
-    position = -currentSlide * itemWidth;
-    carousel.style.transform = `translateX(${position}px)`;
-    updateIndicators();
-}
 
-function goToSlide(slideIndex) {
-    currentSlide = slideIndex;
-    position = -currentSlide * itemWidth;
-    carousel.style.transform = `translateX(${position}px)`;
-    updateIndicators();
-}
+    document.getElementById('upcoming-events').innerHTML = upcomingEvents.map(createEventCard).join('');
+    document.getElementById('previous-events').innerHTML = previousEvents.map(createEventCard).join('');
 
-// Auto-advance carousel
-let autoAdvance = setInterval(() => moveCarousel('next'), 5000);
+    const modal = document.getElementById('success-modal');
+    const closeBtn = document.querySelector('.close-modal');
 
-// Add button listeners
-document.getElementById('prevButton').addEventListener('click', () => {
-    clearInterval(autoAdvance);
-    moveCarousel('prev');
-    autoAdvance = setInterval(() => moveCarousel('next'), 5000);
-});
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        modal.style.display = 'flex';
+        this.reset();
+    });
 
-document.getElementById('nextButton').addEventListener('click', () => {
-    clearInterval(autoAdvance);
-    moveCarousel('next');
-    autoAdvance = setInterval(() => moveCarousel('next'), 5000);
-});
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
 
-// Clone first few items for infinite scroll effect
-const itemsToClone = 3;
-for (let i = 0; i < itemsToClone; i++) {
-    const clone = items[i].cloneNode(true);
-    carousel.appendChild(clone);
-}
+    window.addEventListener('click', function(e) {
+        if (e.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
 
-// Pause auto-advance on hover
-carousel.addEventListener('mouseenter', () => clearInterval(autoAdvance));
-carousel.addEventListener('mouseleave', () => {
-    autoAdvance = setInterval(() => moveCarousel('next'), 5000);
-});
- class TypingEffect {
-            constructor(element, text, typeSpeed = 150, eraseSpeed = 75, pauseDelay = 2000) {
-                this.element = element;
-                this.text = text;
-                this.typeSpeed = typeSpeed;
-                this.eraseSpeed = eraseSpeed;
-                this.pauseDelay = pauseDelay;
-                this.isTyping = false;
-                this.currentText = '';
-                this.currentIndex = 0;
+    function typeEffect(element, text, speed = 100) {
+        let i = 0;
+        element.textContent = '';
+        
+        function type() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
             }
+        }
+        
+        type();
+    }
 
-            type() {
-                if (this.currentIndex < this.text.length) {
-                    this.currentText += this.text.charAt(this.currentIndex);
-                    this.element.textContent = this.currentText;
-                    this.currentIndex++;
-                    setTimeout(() => this.type(), this.typeSpeed);
-                } else {
-                    setTimeout(() => this.erase(), this.pauseDelay);
-                }
+    const header = document.querySelector('.type-effect');
+    typeEffect(header, 'BashCraft Club');
+
+    const terminalOverlay = document.getElementById('terminalOverlay');
+    const terminalInput = document.getElementById('terminalInput');
+
+    terminalInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            if (this.value.trim().toLowerCase() === '/start') {
+                terminalOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    terminalOverlay.style.display = 'none';
+                }, 500);
             }
+            this.value = '';
+        }
+    });
 
-            erase() {
-                if (this.currentText.length > 0) {
-                    this.currentText = this.currentText.slice(0, -1);
-                    this.element.textContent = this.currentText;
-                    setTimeout(() => this.erase(), this.eraseSpeed);
-                } else {
-                    this.currentIndex = 0;
-                    setTimeout(() => this.type(), this.typeSpeed);
-                }
-            }
+    const carousel = document.getElementById('imageCarousel');
+    const items = document.querySelectorAll('.carousel-item');
+    const totalItems = items.length;
+    const itemWidth = 420;
+    let position = 0;
+    let currentSlide = 0;
 
-            start() {
-                if (!this.isTyping) {
-                    this.isTyping = true;
-                    this.type();
-                }
+    const indicators = document.getElementById('carouselIndicators');
+    for (let i = 0; i < totalItems; i++) {
+        const indicator = document.createElement('div');
+        indicator.classList.add('carousel-indicator');
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => goToSlide(i));
+        indicators.appendChild(indicator);
+    }
+
+    function updateIndicators() {
+        document.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function moveCarousel(direction) {
+        currentSlide = direction === 'next' ? (currentSlide + 1) % totalItems : (currentSlide - 1 + totalItems) % totalItems;
+        position = -currentSlide * itemWidth;
+        carousel.style.transform = `translateX(${position}px)`;
+        updateIndicators();
+    }
+
+    function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        position = -currentSlide * itemWidth;
+        carousel.style.transform = `translateX(${position}px)`;
+        updateIndicators();
+    }
+
+    let autoAdvance = setInterval(() => moveCarousel('next'), 5000);
+
+    document.getElementById('prevButton').addEventListener('click', () => {
+        clearInterval(autoAdvance);
+        moveCarousel('prev');
+        autoAdvance = setInterval(() => moveCarousel('next'), 5000);
+    });
+
+    document.getElementById('nextButton').addEventListener('click', () => {
+        clearInterval(autoAdvance);
+        moveCarousel('next');
+        autoAdvance = setInterval(() => moveCarousel('next'), 5000);
+    });
+
+    const itemsToClone = 3;
+    for (let i = 0; i < itemsToClone; i++) {
+        const clone = items[i].cloneNode(true);
+        carousel.appendChild(clone);
+    }
+
+    carousel.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+    carousel.addEventListener('mouseleave', () => {
+        autoAdvance = setInterval(() => moveCarousel('next'), 5000);
+    });
+
+    class TypingEffect {
+        constructor(element, text, typeSpeed = 150, eraseSpeed = 75, pauseDelay = 2000) {
+            this.element = element;
+            this.text = text;
+            this.typeSpeed = typeSpeed;
+            this.eraseSpeed = eraseSpeed;
+            this.pauseDelay = pauseDelay;
+            this.isTyping = false;
+            this.currentText = '';
+            this.currentIndex = 0;
+        }
+
+        type() {
+            if (this.currentIndex < this.text.length) {
+                this.currentText += this.text.charAt(this.currentIndex);
+                this.element.textContent = this.currentText;
+                this.currentIndex++;
+                setTimeout(() => this.type(), this.typeSpeed);
+            } else {
+                setTimeout(() => this.erase(), this.pauseDelay);
             }
         }
 
-        // Initialize typing effect
-        const titleElement = document.getElementById('typing-title');
-        const typingEffect = new TypingEffect(
-            titleElement,
-            'BashCraft Club',
-            150,  // typing speed
-            75,   // erasing speed
-            2000  // pause delay
-        );
-        typingEffect.start();
-    </script>
+        erase() {
+            if (this.currentText.length > 0) {
+                this.currentText = this.currentText.slice(0, -1);
+                this.element.textContent = this.currentText;
+                setTimeout(() => this.erase(), this.eraseSpeed);
+            } else {
+                this.currentIndex = 0;
+                setTimeout(() => this.type(), this.typeSpeed);
+            }
+        }
+
+        start() {
+            if (!this.isTyping) {
+                this.isTyping = true;
+                this.type();
+            }
+        }
+    }
+
+    const titleElement = document.getElementById('typing-title');
+    const typingEffect = new TypingEffect(titleElement, 'BashCraft Club', 150, 75, 2000);
+    typingEffect.start();
+</script>
+
 </body>
 </html>
