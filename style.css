@@ -1,4 +1,3 @@
-
 :root {
     --terminal-black: #1a1a1a;
     --terminal-green: #00ff00;
@@ -29,7 +28,7 @@ body {
 
 .terminal-header {
     border-bottom: 2px solid var(--terminal-green);
-    padding: 40px 0;
+    padding: 20px;
     margin-bottom: 30px;
 }
 
@@ -38,7 +37,8 @@ body {
     margin-bottom: 10px;
 }
 
-.terminal-nav {
+ /* Terminal Navbar Styles */
+ .terminal-nav {
     background: var(--terminal-black);
     border-bottom: 2px solid var(--terminal-green);
     padding: 10px 0;
@@ -84,6 +84,13 @@ body {
     transform: translateX(10px);
 }
 
+/* Modified Header Styles for Typing Effect */
+.terminal-header {
+    padding: 40px 0;
+    border-bottom: 2px solid var(--terminal-green);
+    margin-bottom: 30px;
+}
+
 .typing-title {
     font-size: 2.5em;
     position: relative;
@@ -101,6 +108,7 @@ body {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
+
 
 .terminal-window {
     background: rgba(0, 0, 0, 0.8);
@@ -226,6 +234,7 @@ textarea.form-input {
     color: var(--terminal-green);
 }
 
+/* New Terminal Overlay styles */
 .terminal-overlay {
     position: fixed;
     top: 0;
@@ -260,6 +269,7 @@ textarea.form-input {
     outline: none;
 }
 
+/* Video background styles */
 .video-background {
     position: fixed;
     top: 0;
@@ -276,6 +286,7 @@ textarea.form-input {
     object-fit: cover;
 }
 
+/* Carousel styles */
 .carousel-container {
     width: 100%;
     overflow: hidden;
@@ -313,4 +324,3 @@ textarea.form-input {
         height: 200px;
     }
 }
-
